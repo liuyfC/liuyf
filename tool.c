@@ -110,6 +110,111 @@ INT32U AsciiToDec(INT8U *sptr, INT8U slen)
 }
 
 
+INT8U AsciiToBcd(INT8U *dptr, INT8U* sptr, INT8U len)
+{
+   INT8U retlen, i;
+
+   if (0 == len) return 0;   
+    
+    retlen = 0;
+    
+    if (len % 2) {
+        *dptr++ = CharToHex(*sptr++);
+        len--;
+        retlen++;
+    }
+    
+    for (i = 1; i <= len; i++) {
+       if (0 != (i % 2)) {
+           *dptr = (CharToHex(*sptr++) << 4) & 0xf0;
+       } else {
+           *dptr += CharToHex(*sptr++);
+ 	       dptr++;
+ 	       retlen++;
+       }
+   }
+   return retlen;
+}
+
+/*******************************************************************
+** 函数名:     BcdToHex_Byte
+** 函数描述:   BCD码转换为HEX格式, 如0x33,则转换为0x21
+** 参数:       [in] bcd: 待转换BCD值
+** 返回:       返回HEX值
+********************************************************************/
+INT8U BcdToHex_Byte(INT8U bcd)
+{
+    INT8U temp;
+    
+    temp = (bcd >> 4) * 10 + (bcd & 0x0F);
+    
+    return temp;
+}
+
+/*******************************************************************
+** 函数名:     BcdToHex
+** 函数描述:   BCD码转换为HEX格式, 如0x11 0x22 0x33,则转换为0x0B 0x16 0x21
+** 参数:       [out] dptr: 转换后数据缓存
+**             [in]  sptr: 待转换数据指针
+**             [in]  slen: 待转换数据长度
+** 返回:       无
+********************************************************************/
+void BcdToHex(INT8U *dptr, INT8U *sptr, INT32U slen)
+{
+    INT8U readbyte;
+    INT32U i;
+    
+    for (i = 0; i < slen; i++) {
+        readbyte = sptr[i];
+        dptr[i] = (readbyte >> 4) * 10 + (readbyte & 0x0F);
+    }
+}
+
+/*******************************************************************
+** 函数名:     HexToBcd_Byte
+** 函数描述:   HEX格式转换为BCD格式, 如0x21,则转换为0x33
+** 参数:       [in] temptype: 待转换HEX值
+** 返回:       返回BCD值
+********************************************************************/
+INT8U HexToBcd_Byte(INT8U temptype)
+{
+    INT8U temp;
+    
+    temp = ((temptype / 10) << 4) + (temptype % 10);
+    return temp;
+}
+
+/*******************************************************************
+** 函数名:     HexToBcd
+** 函数描述:   HEX格式转换为BCD格式, 如0x0B 0x16 0x21,则转换为0x11 0x22 0x33
+** 参数:       [out] dptr: 转换后数据缓存
+**             [in]  sptr: 待转换数据指针
+**             [in]  slen: 待转换数据长度
+** 返回:       无
+********************************************************************/
+void HexToBcd(INT8U *dptr, INT8U *sptr, INT32U slen)
+{
+    INT8U readbyte;
+    INT32U i;
+    
+    for (i = 0; i < slen; i++) {
+        readbyte = sptr[i];
+        dptr[i] = ((readbyte / 10) << 4) + (readbyte % 10);
+    }
+}
+
+INT16U HexToDec(INT8U *dptr, INT8U *sptr, INT16U len)
+{
+    INT16U i;
+    INT8U  stemp;
+    
+    for (i = 1; i <= len; i++) {
+        stemp = *sptr++;
+        *dptr++ = HexToChar(stemp / 10);
+        *dptr++ = HexToChar(stemp % 10);
+    }
+    return (2 * len);
+}
 
 
 
