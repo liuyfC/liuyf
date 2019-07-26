@@ -216,17 +216,3 @@ INT16U HexToDec(INT8U *dptr, INT8U *sptr, INT16U len)
     return (2 * len);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
