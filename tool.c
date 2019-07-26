@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include<string.h>
 
-typedef unsigned char  INT8U;                   /* Unsigned  8 bit quantity                           */
-typedef unsigned short INT16U;                  /* Signed   16 bit quantity                           */
-typedef unsigned int   INT32U;                  /* Unsigned 32 bit quantity                           */
+typedef unsigned char  INT8U;                   /* Unsigned  8 bit quantity*/
+typedef unsigned short INT16U;                  /* Signed   16 bit quantity*/
+typedef unsigned int   INT32U;                  /* Unsigned 32 bit quantity*/
 
 
 
