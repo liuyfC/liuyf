@@ -35,7 +35,16 @@ INT16U HexToAscii(INT8U *dptr, INT8U *sptr, INT16U len)
     return (2 * len);
 }
 
-INT16U AsciiToHex(INT8U *dptr, INT8U *sptr, INT16U len)
+/*******************************************************************
+**  函数名  :  AsciiToHex
+**  函数描述:  将Ascii值转换为hex
+**  参数:      [out] dptr:   转换后Hex码缓存指针
+**             [in]  sptr:   待转换的数值
+**             [in]  reflen: sptr的长度**             
+**             [in]  type:  0 左对齐 1 右对齐
+**  返回参数:  成功返回转换后的长度(包含结束符)，失败返回0
+********************************************************************/
+INT16U AsciiToHex(INT8U *dptr, INT8U *sptr, INT16U len, INT8U type)
 {
     INT16U i;
     INT8U  dtemp, stemp;
